@@ -2,7 +2,10 @@ tasks = []
 
 
 def add_task():
-    title = input("Enter task: ")
+    title = input("Enter task: ").strip()
+    if not title:
+        print("Task cannot be empty.")
+        return
     tasks.append({"title": title, "done": False})
     print("Task added.")
 
@@ -16,10 +19,16 @@ def view_tasks():
         print(f"{i}. [{mark}] {task['title']}")
 
 def delete_task():
+    if not tasks:
+        print("No tasks to delete.")
+        return
     view_tasks()
-    number = int(input("Enter task number to delete: "))
-    removed = tasks.pop(number - 1)
-    print(f"Deleted: {removed['title']}")
+    try:
+        number = int(input("Enter task number to delete: "))
+        removed = tasks.pop(number - 1)
+        print(f"Deleted: {removed['title']}")
+    except (ValueError, IndexError):
+        print("Invalid task number.")
 
 def main():
     while True:
