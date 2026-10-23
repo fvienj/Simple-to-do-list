@@ -30,12 +30,25 @@ def delete_task():
     except (ValueError, IndexError):
         print("Invalid task number.")
 
+def mark_done():
+    if not tasks:
+        print("No tasks to mark.")
+        return
+    view_tasks()
+    try:
+        number = int(input("Enter task number to mark as done: "))
+        tasks[number - 1]["done"] = True
+        print("Task marked as done.")
+    except (ValueError, IndexError):
+        print("Invalid task number.")
+
 def main():
     while True:
         print("1. Add task")
         print("2. View tasks")
         print("3. Delete task")
-        print("4. Exit")
+        print("4. Mark as Done")
+        print("5. Exit")
         choice = input("Choose an option: ")
 
         if choice == "1":
@@ -45,6 +58,8 @@ def main():
         elif choice == "3":
             delete_task()
         elif choice == "4":
+            mark_done()
+        elif choice == "5":
             print("Goodbye!")
             break
 
